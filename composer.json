@@ -1,0 +1,7 @@
+{
+    "name": "ebremner17/br50_theme",
+    "description": "Theme for Branch 50 RCL.",
+    "type": "drupal-custom-theme",
+    "homepage": "https://github.com/ebremner17/br50_theme",
+    "keywords": ["Drupal"]
+}

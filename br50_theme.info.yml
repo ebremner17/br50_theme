@@ -1,0 +1,22 @@
+name: br50_theme
+type: theme
+'base theme': stable9
+starterkit: true
+version: VERSION
+libraries:
+  - br50_theme/base
+  - br50_theme/messages
+  - core/normalize
+libraries-extend:
+  user/drupal.user:
+    - br50_theme/user
+  core/drupal.dropbutton:
+    - br50_theme/dropbutton
+  core/drupal.dialog:
+    - br50_theme/dialog
+  file/drupal.file:
+    - br50_theme/file
+  core/drupal.progress:
+    - br50_theme/progress
+core_version_requirement: ^10
+generator: 'starterkit_theme:10.0.0'
