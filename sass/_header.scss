@@ -1,0 +1,51 @@
+.br50-header {
+
+  &__logo {
+    background-color: white;
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  &__title {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+    padding-top: 1rem;
+    text-align: center;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .br50-header {
+    display: grid;
+    grid-template-columns: 20% 60% 20%;
+
+    &__logo {
+      grid-column: 1 / 2;
+      grid-row: 1 / 2;
+      padding-left: 1rem;
+    }
+
+    &__title {
+      grid-column: 2 / 3;
+      grid-row: 1 / 2;
+    }
+
+    &__picture {
+      padding-right: 1rem;
+      grid-column: 3 / 4;
+      grid-row: 1 / 2;
+      text-align: right;
+    }
+  }
+}
+
+.header-title-1 {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.header-title-2 {
+  font-size: 20px;
+}

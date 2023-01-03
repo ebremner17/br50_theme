@@ -7,6 +7,7 @@ libraries:
   - br50_theme/base
   - br50_theme/messages
   - core/normalize
+  - br50_theme/global-styling
 libraries-extend:
   user/drupal.user:
     - br50_theme/user
