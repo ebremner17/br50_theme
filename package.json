@@ -3,6 +3,7 @@
   "version": "0.0.2",
   "private": true,
   "devDependencies": {
+    "expand-brackets": "^4.0.0",
     "glob": "^7.2.0",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^8.0.0",
