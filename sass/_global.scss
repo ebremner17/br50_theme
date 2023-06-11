@@ -1,0 +1,146 @@
+body {
+  background-image: none;
+  background-color: black;
+}
+
+details {
+  padding: .5em .5em 0;
+}
+
+details:hover summary {
+  background-color: #4e4e4e;
+  background-image: url(../images/mobile-arrow-down-w.svg),linear-gradient(transparent,transparent);
+  color: white;
+}
+
+details[open] summary {
+  background-color: #4e4e4e;
+  background-image: url(../images/mobile-arrow-down-w.svg),linear-gradient(transparent,transparent);
+  color: white;
+}
+
+summary {
+  background-color: #eee;
+  background-image: url(../images/mobile-arrow-down.svg),linear-gradient(transparent,transparent);
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 13px;
+  color: black;
+  font-weight: bold;
+  margin: -.5em -.5em 0;
+  padding: .5em;
+}
+
+summary::after {
+  content: "";
+  display: block;
+  height: 1rem;
+  position: absolute;
+  right: 1rem;
+  top: calc(50% - .5rem);
+  width: 1rem;
+}
+
+details > summary {
+  list-style: none;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
+
+#page {
+  display: grid;
+  grid-template-columns: 100%;
+}
+
+.user-authenticated {
+  #toolbar-item-user-tray {
+    display: none;
+  }
+}
+
+.region--highlighted {
+  padding-top: 1rem;
+}
+
+#block-players-theme-content {
+  display: block;
+  width: 100%;
+}
+
+.grid-full {
+  display: block;
+}
+
+.main-content {
+  width: 100%;
+}
+
+.players-contained-width {
+  padding: 0.5rem;
+  max-width: 73rem;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.region--highlighted,
+#entity-view-display-layout-builder-form,
+.node-players-web-page-layout-builder-form,
+.block-page-title-block {
+  max-width: 73rem;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.layout-builder {
+  //padding: 1.5em 0 0.5em;
+}
+
+.layout-builder-block {
+  padding: 1.5rem 0;
+  &.block-cbl-copy-text,
+  &.block-inline-blockcbl-image{
+    padding: 0 !important;
+    + .layout-builder__add-block{
+      position: absolute;
+      margin-right: auto;
+      margin-left: auto;
+      max-width: 25rem;
+      width: 100%;
+    }
+  }
+}
+
+.layout-builder__section:has(.players-contained-width) {
+  max-width: 78rem;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.layout-builder__add-section{
+  margin-top: 6rem;
+}
+.layout-builder__link {
+  margin-left: 0.25rem;
+}
+
+.layout-builder-browser-block-item {
+  display: block!important;
+}
+
+.region--highlighted {
+  padding-top: 0;
+}
+
+.block-local-tasks-block {
+  padding-top: 1rem;
+}
+
+.messages-list {
+  padding-top: 0.5rem;
+}
+
+body.toolbar-tray-open.toolbar-vertical.toolbar-fixed {
+  margin-left: 0;
+  margin-right: 0;
+}

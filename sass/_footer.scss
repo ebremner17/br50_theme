@@ -1,0 +1,47 @@
+.br50-footer {
+  background-color: black;
+  color: white;
+
+  &__wrapper {
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+
+    @media screen and (min-width: 768px) {
+      display: grid;
+      grid-template-columns: 33% 33% 33%;
+    }
+  }
+
+  &__hours {
+    @media screen and (min-width: 768px) {
+      grid-column: 1 / 2;
+      grid-row: 1 / 2;
+      text-align: left;
+      padding: 1rem;
+    }
+
+    span {
+      font-weight: bold;
+      font-size: 20px;
+    }
+  }
+
+  &__address {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    padding: 1rem;
+
+    span {
+      font-weight: bold;
+      font-size: 20px;
+    }
+  }
+
+  &__copyright {
+    grid-column: 3 / 4;
+    grid-row: 1 / 2;
+    text-align: right;
+    padding: 1rem;
+  }
+}

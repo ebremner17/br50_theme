@@ -1,0 +1,24 @@
+name: Branch 50
+type: theme
+description: Theme for Branch 50
+base theme: olivero
+core_version_requirement: ^9 | ^10
+
+libraries:
+  - core/normalize
+  - br50_theme/global-styling
+
+regions:
+  header: Header
+  primary_menu: 'Primary menu'
+  secondary_menu: 'Secondary menu'
+  hero: 'Hero (full width)'
+  highlighted: Highlighted
+  breadcrumb: Breadcrumb
+  social: Social Bar
+  content_above: Content Above
+  content: Content
+  sidebar: 'Sidebar'
+  content_below: 'Content Below'
+  footer_top: 'Footer Top'
+  footer_bottom: 'Footer Bottom'

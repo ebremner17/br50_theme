@@ -1,0 +1,18 @@
+<?php
+
+/**
+ * @file
+ * Theme file for br50_theme.
+ */
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function br50_theme_preprocess_region(&$variables) {
+
+  if ($variables['region'] == 'header') {
+    $themeHandler = \Drupal::service('theme_handler');
+    $variables['theme_path'] = $themeHandler->getTheme($themeHandler->getDefault())->getPath();
+  }
+
+}
