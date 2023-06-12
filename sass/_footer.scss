@@ -41,7 +41,11 @@
   &__copyright {
     grid-column: 3 / 4;
     grid-row: 1 / 2;
-    text-align: right;
+    text-align: center;
     padding: 1rem;
+
+    @media screen and (min-width: 768px) {
+      text-align: right;
+    }
   }
 }

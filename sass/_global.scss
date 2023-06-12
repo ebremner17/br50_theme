@@ -41,6 +41,14 @@ summary::after {
   width: 1rem;
 }
 
+.path-user {
+  #content {
+    max-width: 63rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
 details > summary {
   list-style: none;
 }
