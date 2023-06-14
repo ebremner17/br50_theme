@@ -91,6 +91,12 @@ details > summary::-webkit-details-marker {
   margin-left: auto;
 }
 
+.ui-dialog {
+  .fieldset__label {
+    color: black;
+  }
+}
+
 .region--highlighted,
 #entity-view-display-layout-builder-form,
 .node-players-web-page-layout-builder-form,
