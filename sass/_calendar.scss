@@ -4,3 +4,18 @@
   margin-left: auto;
   margin-right: auto;
 }
+
+.view-display-id-block_events_upcoming {
+  .node__title {
+    padding: 0;
+    margin: 0;
+  }
+
+  .node__content {
+    padding-bottom: 0.2rem;
+  }
+
+  article {
+    margin-bottom: 0.2rem;
+  }
+}
