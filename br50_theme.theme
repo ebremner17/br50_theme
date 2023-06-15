@@ -25,15 +25,15 @@ function br50_theme_preprocess_node(&$variables) {
   // Get the node object.
   $node = $variables['node'];
 
-  // Get the media id if there is one.
-  $mid = $node->field_br50_hero_image->target_id;
-
   // If there is a media id, load the media and
   // get the responsive image variables.
-  if ($mid) {
+  if (
+    $node->hasField('field_br50_hero_image') &&
+    !$node->get('field_br50_hero_image')->isEmpty()
+  ) {
 
     // Load the media object.
-    $media = Media::load($mid);
+    $media = Media::load($node->field_br50_hero_image->target_id);
 
     // Get the picture sources.
     $sources = _br50_theme_prepare_responsive_image($media, 'ris_br50_responsive');
@@ -46,6 +46,8 @@ function br50_theme_preprocess_node(&$variables) {
     // Set the hero image.
     $variables['hero_image'] = $image;
 
+    // Set the node title so that we can display it
+    // below the hero image.
     $variables['node_title'] = $node->getTitle();
   }
 }
