@@ -31,25 +31,21 @@
  * @ingroup themeable
  */
 #}
-{%
-  set classes = [
+
+{% if show_title %}
+  {%
+    set classes = [
     'block',
     'block-' ~ configuration.provider|clean_class,
     'block-' ~ plugin_id|clean_class,
     layout ? 'layout--' ~ layout|clean_class,
   ]
-%}
+  %}
 
-<div{{ attributes.addClass(classes) }}>
-  {{ title_prefix }}
-  <h2{{ title_attributes.addClass('block__title') }}>Upcoming Events</h2>
-  {{ title_suffix }}
-  {% block content %}
-    <div{{ content_attributes.addClass('block__content') }}>
-      {{ content }}
-    </div>
-  {% endblock %}
-</div>
-<div class="br50-event-upcoming__button">
-  <a href="/events/calendar" class="button" tabindex="-1">View all events</a>
-</div>
+
+  <div{{ attributes.addClass(classes) }}>
+    {{ title_prefix }}
+    {{ content }}
+    {{ title_suffix }}
+  </div>
+{% endif %}

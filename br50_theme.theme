@@ -5,6 +5,9 @@
  * Theme file for br50_theme.
  */
 
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\media\Entity\Media;
+
 /**
  * Implements hook_preprocess_HOOK().
  */
@@ -15,4 +18,110 @@ function br50_theme_preprocess_region(&$variables) {
     $variables['theme_path'] = $themeHandler->getTheme($themeHandler->getDefault())->getPath();
   }
 
+}
+
+function br50_theme_preprocess_node(&$variables) {
+
+  // Get the node object.
+  $node = $variables['node'];
+
+  // Get the media id if there is one.
+  $mid = $node->field_br50_hero_image->target_id;
+
+  // If there is a media id, load the media and
+  // get the responsive image variables.
+  if ($mid) {
+
+    // Load the media object.
+    $media = Media::load($mid);
+
+    // Get the picture sources.
+    $sources = _br50_theme_prepare_responsive_image($media, 'ris_br50_responsive');
+
+    // Set the image variables for the template.
+    $image['alt'] = $sources['alt'];
+    $image['sources'] = $sources['responsive_sources'];
+    $image['img_element'] = $sources['img_element']['#uri'];
+
+    // Set the hero image.
+    $variables['hero_image'] = $image;
+
+    $variables['node_title'] = $node->getTitle();
+  }
+}
+
+/**
+ * Implements hook_preprocess_page_title().
+ */
+function br50_theme_preprocess_page_title($variables) {
+
+  // Set the show title to true to start.
+  $variables['show_title'] = TRUE;
+
+  // Check if this is a node and if so check for hero image.
+  if ($node = \Drupal::routeMatch()->getParameter('node')) {
+
+    // If this has a hero image, set variable to not
+    // show the title.
+    if ($node->field_br50_hero_image->target_id) {
+      $variables['show_title'] = FALSE;
+    }
+  }
+}
+
+/**
+ * @param EntityInterface|null $entity
+ *   Null or entity object.
+ * @param string $image_style
+ *   The responsive image style.
+ *
+ * @return array
+ *   Array of sources for the image.
+ */
+function _br50_theme_prepare_responsive_image(?EntityInterface $entity, string $image_style): array {
+
+  // Ensure that we can load an entity on the media.
+  if ($entity && isset($entity->field_media_image->entity)) {
+
+    // Load in the file object if we have one.
+    if ($file = $entity->field_media_image->entity) {
+
+      // Need to set these variables so that responsive image function,
+      // has all the necessary info to process the image style.
+      $variables['uri'] = $file->getFileUri();
+      $variables['responsive_image_style_id'] = $image_style;
+
+      // Set the alt for the image.
+      $variables['alt'] = $entity->field_media_image->alt;
+
+      // This is a function from the responsive image module that sets all
+      // the variables for the sources of the responsive image.
+      template_preprocess_responsive_image($variables);
+
+      // Step through each of the sources and setup our own sources array.
+      foreach ($variables['sources'] as $source) {
+
+        $srcset = $source->storage()['srcset']->value();
+        $srcset_parts = explode('/', $srcset);
+
+        foreach ($srcset_parts as $srcset_part) {
+          if (strpos($srcset_part, 'uw_is') !== FALSE) {
+            $style = $srcset_part;
+            break;
+          }
+        }
+
+        $variables['responsive_sources'][] = [
+          'srcset' => $srcset,
+          'media' => $source->storage()['media']->value(),
+          'type' => $source->storage()['type']->value(),
+          'style' => $image_style,
+        ];
+      }
+
+      return $variables;
+    }
+  }
+
+  return [];
 }
