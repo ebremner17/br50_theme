@@ -1,0 +1,86 @@
+.br50-upcoming,
+.br50-past {
+
+  a {
+    display: block;
+    text-decoration: none;
+    color: black;
+  }
+
+  a:hover {
+    .month,
+    .day {
+      color: red;
+    }
+  }
+
+  ul.br50-upcoming__list,
+  ul.br50-past__list {
+    list-style: disc outside none;
+    padding: 0;
+
+    @media screen and (min-width: 768px) {
+      -moz-box-align: start;
+      -moz-box-orient: horizontal;
+      -moz-box-pack: start;
+      max-width: 63.125rem;
+      margin-left: auto;
+      margin-right: auto;
+      align-items: start;
+      display: flex;
+      flex-direction: row;
+      justify-content: stretch;
+      flex-wrap: wrap;
+    }
+  }
+
+  .br50-upcoming__list,
+  .br50-past__list {
+    li {
+      list-style-type: none;
+      border-bottom: none;
+      padding: 0;
+      margin-bottom: 1rem;
+      display: inline-block;
+      width: 100%;
+
+      @media screen and (min-width: 768px) {
+        display: block;
+        -moz-box-flex: 1;
+        flex: 1 0 30%;
+      }
+    }
+  }
+
+  .date {
+    background-color: black;
+    text-transform: uppercase;
+    height: 6rem;
+    width: 6rem;
+    display: block;
+    float: left;
+    margin: 0 1rem 0 0;
+    text-align: center;
+    padding-top: .5rem;
+    color: white;
+  }
+
+  .time {
+    padding-top: 0.5rem;
+    display: block;
+  }
+
+  .month {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .day {
+    display: block;
+    font-size: 3.24732rem;
+  }
+
+  .title {
+    display: block;
+  }
+}

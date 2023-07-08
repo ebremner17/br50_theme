@@ -13,41 +13,89 @@ use Drupal\media\Entity\Media;
  */
 function br50_theme_preprocess_region(&$variables) {
 
+  // If this is the header region set the theme directory.
   if ($variables['region'] == 'header') {
+
+    // Get the theme handler service.
     $themeHandler = \Drupal::service('theme_handler');
+
+    // Set the theme path directory variable.
     $variables['theme_path'] = $themeHandler->getTheme($themeHandler->getDefault())->getPath();
   }
-
 }
 
+/**
+ * Implements hook_preprocess_node().
+ */
 function br50_theme_preprocess_node(&$variables) {
 
   // Get the node object.
   $node = $variables['node'];
 
-  // If there is a media id, load the media and
-  // get the responsive image variables.
+  // If this is an event, get the dates.
+  if ($node->getType() == 'event') {
+    $variables['when'] = $node->field_when->view('teaser');
+  }
+
+  // If this is an news, get the date.
+  if ($node->getType() == 'br50_news') {
+    $variables['news_date'] = $node->field_br50_news_date->view('teaser');
+  }
+
+  // If this node has banners, add it as variables.
   if (
-    $node->hasField('field_br50_hero_image') &&
-    !$node->get('field_br50_hero_image')->isEmpty()
+    $node->hasField('field_br50_banners') &&
+    !$node->get('field_br50_banners')->isEmpty()
   ) {
 
-    // Load the media object.
-    $media = Media::load($node->field_br50_hero_image->target_id);
+    // Get the banners.
+    $banners = $node->get('field_br50_banners')->getValue();
 
-    // Get the picture sources.
-    $sources = _br50_theme_prepare_responsive_image($media, 'ris_br50_responsive');
+    // Step through each of the banners, and get the info.
+    foreach ($banners as $banner) {
 
-    // Set the image variables for the template.
-    $image['alt'] = $sources['alt'];
-    $image['sources'] = $sources['responsive_sources'];
-    $image['img_element'] = $sources['img_element']['#uri'];
+      // Load the media.
+      $media = Media::load($banner['target_id']);
 
-    // Set the hero image.
-    $variables['hero_image'] = $image;
+      // Get the media info based on the bundle.
+      switch ($media->bundle()) {
 
-    // Set the node title so that we can display it
-    // below the hero image.
+        case 'image':
+
+          // Get the picture sources.
+          $sources = _br50_theme_prepare_responsive_image($media, 'ris_br50_responsive');
+
+          // Set the image variables for the template.
+          $image['alt'] = $sources['alt'];
+          $image['sources'] = $sources['responsive_sources'];
+          $image['img_element'] = $sources['img_element']['#uri'];
+          $image['caption'] = $media->field_br50_image_caption->value;
+
+          // Set the info in the array.
+          $br50_banners[] = [
+            'type' => 'image',
+            'image' => $image,
+          ];
+
+          break;
+
+        case 'remote_video':
+
+          // Get the video info.
+          $br50_banners[] = [
+            'type' => 'video',
+            'video' => \Drupal::entityTypeManager()
+              ->getViewBuilder('media')
+              ->view($media, 'default'),
+            'caption' => $media->field_br50_image_caption->value,
+          ];
+
+          break;
+      }
+    }
+
+    // Set the banners and node title.
+    $variables['br50_banners'] = $br50_banners;
     $variables['node_title'] = $node->getTitle();
   }
 }
@@ -55,18 +103,27 @@ function br50_theme_preprocess_node(&$variables) {
 /**
  * Implements hook_preprocess_page_title().
  */
-function br50_theme_preprocess_page_title($variables) {
+function br50_theme_preprocess_block(&$variables) {
 
-  // Set the show title to true to start.
-  $variables['show_title'] = TRUE;
+  // If this is the page title block, see if we show the title.
+  if ($variables['plugin_id'] == 'page_title_block') {
 
-  // Check if this is a node and if so check for hero image.
-  if ($node = \Drupal::routeMatch()->getParameter('node')) {
+    // Set the show title to true to start.
+    $variables['show_title'] = TRUE;
 
-    // If this has a hero image, set variable to not
-    // show the title.
-    if ($node->field_br50_hero_image->target_id) {
-      $variables['show_title'] = FALSE;
+    // Check if this is a node and if so check for hero image.
+    if ($node = \Drupal::routeMatch()->getParameter('node')) {
+
+      // Check if we have a banners field and if so,
+      // check if we should show the title.
+      if ($node->hasField('field_br50_banners')) {
+
+        // If this has a hero image, set variable to not
+        // show the title.
+        if (!empty($node->field_br50_banners->getValue())) {
+          $variables['show_title'] = FALSE;
+        }
+      }
     }
   }
 }
@@ -103,9 +160,13 @@ function _br50_theme_prepare_responsive_image(?EntityInterface $entity, string $
       // Step through each of the sources and setup our own sources array.
       foreach ($variables['sources'] as $source) {
 
+        // Get the source set.
         $srcset = $source->storage()['srcset']->value();
+
+        // Break apart the source set.
         $srcset_parts = explode('/', $srcset);
 
+        // Step through each and get the style.
         foreach ($srcset_parts as $srcset_part) {
           if (strpos($srcset_part, 'uw_is') !== FALSE) {
             $style = $srcset_part;
@@ -113,6 +174,7 @@ function _br50_theme_prepare_responsive_image(?EntityInterface $entity, string $
           }
         }
 
+        // Set the info about the responsive image.
         $variables['responsive_sources'][] = [
           'srcset' => $srcset,
           'media' => $source->storage()['media']->value(),
@@ -126,4 +188,22 @@ function _br50_theme_prepare_responsive_image(?EntityInterface $entity, string $
   }
 
   return [];
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function br50_theme_preprocess_html(&$variables) {
+
+  $config = \Drupal::config('br50_site.settings');
+
+  $operating_hours = $config->get('operating_hours');
+
+  if ($operating_hours) {
+    $variables['page']['operating_hours'] = [
+      '#type' => 'processed_text',
+      '#text' => $config->get('operating_hours')['value'],
+      '#format' => $config->get('operating_hours')['format'],
+    ];
+  }
 }

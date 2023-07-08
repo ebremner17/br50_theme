@@ -19,3 +19,14 @@
     margin-bottom: 0.2rem;
   }
 }
+
+.fc-list-table {
+  .fc-list-heading-main,
+  .fc-list-heading-alt {
+    color: black;
+  }
+}
+
+.fc-list-item:hover {
+  background-color: red;
+}

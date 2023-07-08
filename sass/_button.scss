@@ -1,0 +1,19 @@
+.br50-event-upcoming__button,
+.br50-news__button {
+  margin-right: auto;
+  margin-left: auto;
+
+  .button {
+    border-color: black;
+    color: black;
+  }
+
+  a:hover {
+    background-color: #e5e5e5;
+    color: red;
+  }
+}
+
+.br50-news__button {
+  max-width: 200px;
+}

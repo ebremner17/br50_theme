@@ -1,6 +1,8 @@
 .layout--br50-1-col {
   display: grid;
-  gap: 0;
+  gap: 2rem;
+  grid-template-columns: 100%;
+
   .layout__region{
     &--first {
       grid-column: 1 / 2;
@@ -10,7 +12,8 @@
 
 .layout--br50-2-col {
   display: grid;
-  gap: 0;
+  gap: 2rem;
+  grid-template-columns: 100%;
 
   &.larger-left {
     @media screen and (min-width: 768px) {
@@ -53,7 +56,7 @@
 
 .layout--br50-3-col {
   display: grid;
-  gap: 0;
+  gap: 2rem;
 
   &.even-split {
 
@@ -115,7 +118,7 @@
 
 .layout--br50-4-col {
   display: grid;
-  gap: 0;
+  gap: 2rem;
 
   &.even-split {
 
@@ -220,7 +223,7 @@
 
 .layout--br50-5-col {
   display: grid;
-  gap: 0;
+  gap: 2rem;
 
   &.even-split {
     @media screen and (min-width: 768px) {
@@ -309,7 +312,7 @@
 
 .layout--br50-inverted-l-left {
   display: grid;
-  gap: 0;
+  gap: 2rem;
 
   &.even-split {
     @media screen and (min-width: 768px) {
@@ -336,7 +339,7 @@
 
   .players-inverted-l--right-side {
     display: grid;
-    gap: 0;
+    gap: 2rem;
     grid-column: 1 / 2;
 
     @media screen and (min-width: 768px) {
@@ -376,7 +379,7 @@
 
 .layout--br50-inverted-l-right {
   display: grid;
-  gap: 0;
+  gap: 1rem;
 
   &.even-split {
     @media screen and (min-width: 768px) {
@@ -398,7 +401,7 @@
 
   .players-inverted-l--left-side {
     display: grid;
-    gap: 0;
+    gap: 2rem;
     grid-column: 1 / 2;
     grid-row: 1 / 2;
 

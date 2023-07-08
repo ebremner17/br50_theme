@@ -1,0 +1,14 @@
+nav.pager {
+  .pager__items {
+    justify-content: center;
+  }
+
+  .pager__link {
+    color: black;
+  }
+
+  .pager__item--active {
+    background-color: black;
+    color: white;
+  }
+}

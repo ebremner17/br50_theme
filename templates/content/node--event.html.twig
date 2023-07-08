@@ -66,28 +66,37 @@
  * @see template_preprocess_node()
  */
 #}
-{% if hero_image %}
-  <div class="br50-hero-image">
-    <picture class="br50-picture">
-      {% if hero_image.sources %}
-        {#
-        Internet Explorer 9 doesn't recognise source elements that are wrapped in
-        picture tags. See http://scottjehl.github.io/picturefill/#ie9
-        #}
-        <!--[if IE 9]><video style="display: none;"><![endif]-->
-        {% for source in hero_image.sources %}
-          <source srcset="{{ source.srcset|raw }}" media="{{ source.media }}" type="{{ source.type }}" />
-        {% endfor %}
-        <!--[if IE 9]></video><![endif]-->
-      {% endif %}
-      {# The controlling image, with the fallback image in srcset. #}
-      <img class="uw-picture__fallback" src="{{ hero_image.img_element }}" alt="{{ hero_image.alt }}">
-    </picture>
-  </div>
-  <div class="br50-title">
-    <h2>{{ node_title }}</h2>
+{% if br50_banners %}
+  <div class="br50-banners owl-carousel owl-theme">
+    {% for br50_banner in br50_banners %}
+      <div class="br50-banner item">
+        {% if br50_banner.type == 'image' %}
+          <picture class="br50-picture">
+            {% if br50_banner.image.sources %}
+
+              <!--[if IE 9]><video style="display: none;"><![endif]-->
+              {% for source in br50_banner.image.sources %}
+                <source srcset="{{ source.srcset|raw }}" media="{{ source.media }}" type="{{ source.type }}" />
+              {% endfor %}
+              <!--[if IE 9]></video><![endif]-->
+            {% endif %}
+            <img class="uw-picture__fallback" src="{{ br50_banner.image.img_element }}" alt="{{ br50_banner.image.alt }}">
+          </picture>
+        {% elseif br50_banner.type == 'video' %}
+          {{ br50_banner.video }}
+        {% endif %}
+        <div class="br50-title">
+          <h2>{{ node_title }}</h2>
+        </div>
+      </div>
+
+    {% endfor %}
   </div>
 {% endif %}
+
+<div class="br50-event-dates">
+  {{ when }}
+</div>
 
 {% set layout = layout ? 'layout--' ~ layout|clean_class %}
 

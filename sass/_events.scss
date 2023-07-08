@@ -1,0 +1,14 @@
+.br50-event-dates {
+  display: block;
+  max-width: 73rem;
+  margin-right: auto;
+  margin-left: auto;
+
+  &__select {
+    background-color: black;
+    color: white;
+    border: 0;
+    width: 100%;
+    background-image: url('/themes/custom/br50_theme/images/chevron-down.png');
+  }
+}

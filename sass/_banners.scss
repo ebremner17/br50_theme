@@ -1,0 +1,46 @@
+.br50-banner {
+  .br50-caption {
+    @media screen and (min-width: 768px) {
+      bottom: 6.5rem;
+    }
+  }
+}
+
+.br50-image-gallery {
+  .br50-caption {
+    @media screen and (min-width: 768px) {
+      bottom: 1rem;
+    }
+  }
+}
+
+.br50-banner,
+.br50-image-gallery {
+  position: relative;
+
+  .br50-caption {
+
+    @media screen and (min-width: 768px) {
+      position: absolute;
+      width: 100%;
+    }
+
+    &__box {
+      display: block;
+      background: rgba(0, 0, 0, 0.6);
+      color: white;
+      padding: 0.25rem;
+      text-align: center;
+      max-width: 73rem;
+      margin-right: auto;
+      margin-left: auto;
+      font-weight: bold;
+      font-size: 0.75rem;
+
+      @media screen and (min-width: 768px) {
+        font-size: 1.5rem;
+        padding: 1rem;
+      }
+    }
+  }
+}
