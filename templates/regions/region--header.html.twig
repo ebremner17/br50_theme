@@ -10,3 +10,11 @@
 <div class="br50-header__image">
   <img src="/{{ theme_path }}/images/warbronze.jpg" alt="Bronze statue of war" />
 </div>
+
+{% if site_notice %}
+  <div class="br50-site-notice br50-site-notice__{{ site_notice.type }}">
+    <div class="br50-site-notice__text">
+      {{ site_notice.text }}
+    </div>
+  </div>
+{% endif %}

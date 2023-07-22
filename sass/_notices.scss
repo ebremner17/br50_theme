@@ -1,0 +1,29 @@
+.br50-site-notice {
+  padding: 0.5rem;
+
+  @media screen and (min-width: 768px) {
+    grid-column: 1 / 4;
+  }
+
+  &__status {
+    background-color: green;
+    color: white;
+  }
+
+  &__notice {
+    background-color: yellow;
+    color: black;
+  }
+
+  &__cancellation {
+    background-color: red;
+    color: white;
+  }
+}
+
+.br50-site-notice__text {
+  max-width: 73rem;
+  margin-right: auto;
+  margin-left: auto;
+  text-align: center;
+}

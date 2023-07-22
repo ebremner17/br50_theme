@@ -21,6 +21,23 @@ function br50_theme_preprocess_region(&$variables) {
 
     // Set the theme path directory variable.
     $variables['theme_path'] = $themeHandler->getTheme($themeHandler->getDefault())->getPath();
+
+    // Get the header text config.
+    $config = \Drupal::config('br50_site.notices');
+
+    if ($config->get('show_notice')) {
+
+      $text = $config->get('notice_text');
+
+      $variables['site_notice'] = [
+        'type' => $config->get('notice_type'),
+        'text' => [
+          '#type' => 'processed_text',
+          '#text' => $text['value'],
+          '#format' => $text['format'],
+        ],
+      ];
+    }
   }
 }
 
