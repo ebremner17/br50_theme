@@ -5,6 +5,7 @@ global-styling:
       css/styles.css: {}
       https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css: { }
       https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css: { }
+      css/print.css: { media: print }
 
   js:
     scripts/br50.js: { }
